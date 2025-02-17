@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+import HeaderButton from "./HeaderButton.astro";
+---
+
+<header class="bg-gray-900 p-5 flex items-center">
+ <img class="border-0 border-r-1 border-b-indigo-300 pr-5"src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" alt="">
+ <div class="flex justify-between w-[100%]">
+    <nav class="m-5 flex ">
+    <HeaderButton href="/">Inicio
+      <svg slot="before"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+          <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+          <path d="M3 12h6"></path>
+          <path d="M15 12h6"></path>
+        </svg>
+    </HeaderButton>
+    <HeaderButton href="/Pokedex">Pokedex
+        <img slot="before" src="https://cdn3.iconfinder.com/data/icons/geek-3/24/Pokedex_video_game-512.png" width="24" height="24" class="invert brightness-10">
+    </HeaderButton>
+    </nav>
+    <div class="flex  m-10">
+      <label for="search" class="border-3 rounded-tl-3xl rounded-bl-3xl p-2 bg-gray-700 border-gray-900 flex items-center ">
+          <svg class="inverted brightness-50 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="35" height="35" stroke-width="2"> <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path> <path d="M21 21l-6 -6"></path> </svg> 
+      </label>
+      <input type="text" name="search" id="search" class="bg-gray-700 rounded-tr-3xl opacity-100 rounded-br-3xl w-xs text-white p-5 border-gray-900 border-3 border-l-0 focus:outline-0 focus:border-gray-900" placeholder="Buscar...">
+    </div>
+  </div> 
+</header>
+
+<style is:global>
+html {
+    color-scheme: light dark;
+}
+</style>

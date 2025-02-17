@@ -1,0 +1,106 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro"
+import { getPokemons } from "../../components/services/names.ts"
+
+export const getStaticPaths = async () => {
+    const pokemons = await getPokemons(151); 
+    return pokemons.map((pokemon: {id: any}) => ({
+        params: { id: pokemon.id }
+    }));
+};
+
+
+let pokemonId = Astro.params.id
+const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+const data = await res.json();
+
+
+const { 
+        nombrePokemon,
+        imgPokemon = data.sprites.other['official-artwork'].front_default, 
+        id = data.id, 
+        vida = data.stats[0].base_stat, 
+        ataque = data.stats[1].base_stat, 
+        defensa = data.stats[2].base_stat, 
+        ataqueEspecial = data.stats[3].base_stat, 
+        defensaEspecial = data.stats[4].base_stat, 
+        velocidad = data.stats[5].base_stat, 
+        tipo = data.types['0'].type.name.toUpperCase(), 
+        tipo2 = data.types['1']?.type.name.toUpperCase()  
+    } = Astro.props;
+
+
+---
+<Layout title=`Lanzamiento ${id}`>
+<article class="flex flex-row mt-20">
+    <picture class="flex  items-center p-4 pb-0 mb-5">
+        <img class="mb-5 rounded-lg w-4xs mt-0 max-h-[475px] max-w-[475px]"src={imgPokemon} alt={`Pokemon ${id}`}>        
+    </picture>
+    <header class="p-4 flex-grow ">
+        <span class=" text-white p-1 size-10 text-[1rem] font-extrabold text-center bg-red-500 w-[150px] h-7 rounded-2xl pl-3 pr-3" id="numPokedex">
+            POKEDEX #{id}</span>
+        <h2 class="my-2 text-2xl font-bold tracking-tight text-white text-center mt-10">{nombrePokemon}</h2>
+        <div class="mb-4 font-light text-gray-400">
+            <span 
+            class:list={[
+                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                {
+                    "bg-green-400 ": tipo == 'GRASS',
+                    "bg-purple-400": tipo == 'POISON',
+                    "bg-red-400": tipo == 'FIRE',
+                    "bg-blue-400": tipo == 'WATER',
+                    "bg-yellow-400": tipo == 'ELECTRIC',
+                    "bg-amber-700": tipo == 'ROCK',
+                    "bg-pink-500": tipo == 'PSYCHIC',
+                    "bg-yellow-600": tipo == 'GROUND',
+                    "bg-blue-200": tipo == 'ICE',
+                    "bg-red-800": tipo == 'FIGHTING',
+                    "bg-violet-600": tipo == 'GHOST',
+                    "bg-indigo-600": tipo == 'DRAGON',
+                    "bg-sky-400": tipo == 'FLYING',
+                    "bg-green-600": tipo2 == 'BUG',
+                    "bg-gray-400": tipo2 == 'NORMAL',
+                    "bg-pink-300": tipo2 == 'FAIRY',
+                    "vacio": (tipo2 != 'GRASS' && tipo2 != 'POISON' && tipo2 != 'FIRE' && tipo2 != 'WATER' && tipo2 !=  'ELECTRIC' && tipo2 != 'ROCK' && tipo2 != 'PSYCHIC' && tipo2 != 'GROUND' && tipo2 != 'ICE' && tipo2 != 'FIGHTING' && tipo2 != 'GHOST' && tipo2 != 'DRAGON' && tipo2 != 'FLYING'&& tipo2 != 'BUG' && tipo2 != 'NORMAL' && tipo2 != 'FAIRY')
+                }
+            ]}>{tipo}</span>
+            <span 
+            class:list={[
+                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                {
+                    "bg-green-400 ": tipo2 == 'GRASS',
+                    "bg-purple-400": tipo2 == 'POISON',
+                    "bg-red-400": tipo2 == 'FIRE',
+                    "bg-blue-400": tipo2 == 'WATER',
+                    "bg-yellow-400": tipo2 == 'ELECTRIC',
+                    "bg-amber-700": tipo2 == 'ROCK',
+                    "bg-pink-500": tipo2 == 'PSYCHIC',
+                    "bg-yellow-600": tipo2 == 'GROUND',
+                    "bg-blue-200": tipo2 == 'ICE',
+                    "bg-red-800": tipo2 == 'FIGHTING',
+                    "bg-violet-600": tipo2 == 'GHOST',
+                    "bg-indigo-600": tipo2 == 'DRAGON',
+                    "bg-sky-400": tipo2 == 'FLYING',
+                    "bg-green-600": tipo2 == 'BUG',
+                    "bg-gray-400": tipo2 == 'NORMAL',
+                    "bg-pink-300": tipo2 == 'FAIRY',
+                    "vacio": (tipo2 != 'GRASS' && tipo2 != 'POISON' && tipo2 != 'FIRE' && tipo2 != 'WATER' && tipo2 !=  'ELECTRIC' && tipo2 != 'ROCK' && tipo2 != 'PSYCHIC' && tipo2 != 'GROUND' && tipo2 != 'ICE' && tipo2 != 'FIGHTING' && tipo2 != 'GHOST' && tipo2 != 'DRAGON' && tipo2 != 'FLYING'&& tipo2 != 'BUG' && tipo2 != 'NORMAL' && tipo2 != 'FAIRY')
+                }
+            ]}>{tipo2}</span>
+        </div>
+            <p class=`mb-2 text-gray-900 font-semibold bg-green-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${vida}%`}>Vida: {vida}</p>
+            <p class=`mb-2 text-gray-900 font-semibold bg-red-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${ataque}%`}>Ataque: {ataque}</p>
+            <p class=`mb-2 text-gray-900 font-semibold bg-gray-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${defensa}%`}>Defensa: {defensa}</p>
+            <p class=`mb-2 text-gray-900 font-semibold bg-orange-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${ataqueEspecial}%`}>Ataque Especial: {ataqueEspecial}</p>
+            <p class=`mb-2 text-gray-900 font-semibold bg-indigo-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${defensaEspecial}%`}>Defensa especial: {defensaEspecial}</p>
+            <p class=`mb-2 text-gray-900 font-semibold bg-yellow-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${velocidad}%`} >Velocidad: {velocidad}</p>
+        </div>
+</article>
+</Layout>
+
+<style>
+    .vacio {
+        width: 0px;
+    }
+</style>

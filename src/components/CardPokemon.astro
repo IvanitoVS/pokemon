@@ -1,0 +1,85 @@
+---
+interface Props {
+    nombrePokemon: string
+    imgPokemon: string
+    id: number 
+    vida: number
+    ataque: number
+    defensa: number
+    ataqueEspecial: number
+    defensaEspecial: number
+    velocidad: number
+    tipo: string
+    tipo2: string
+}
+const { nombrePokemon, imgPokemon, id, vida, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, tipo, tipo2 } = Astro.props;
+
+
+---
+
+<a href={`./pokemon/${id}`} class="rounded-lg border shadow-md bg-gray-800 border-gray-700 hover:scale-105 hover:gray-500 transition flex flex-col">
+    <picture class="flex flex-col justify-center items-center p-4 pb-0 mb-5 ">
+        <span class=" text-white size-10 text-[1rem] font-extrabold text-center bg-red-500 w-[150px] h-8 rounded-2xl flex items-center justify-center" id="numPokedex">
+            POKEDEX #{id}</span>
+        <img class="mb-5 rounded-lg w-4xs mt-0 max-h-[475px] max-w-[475px]"src={imgPokemon} alt={`Pokemon ${id}`}>        
+    </picture>
+    <header class="p-4 flex-grow pt-0">
+        <h2 class="my-2 text-2xl font-bold tracking-tight text-white text-center">{nombrePokemon}</h2>
+        <div class="flex mb-4 font-light text-gray-400 justify-center">
+            <p 
+            class:list={[
+                "mb-2 w-30 h-8 text-center font-bold text-xl mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                {
+                    "bg-green-400 ": tipo == 'GRASS',
+                    "bg-purple-400": tipo == 'POISON',
+                    "bg-red-400": tipo == 'FIRE',
+                    "bg-blue-400": tipo == 'WATER',
+                    "bg-yellow-400": tipo == 'ELECTRIC',
+                    "bg-amber-700": tipo == 'ROCK',
+                    "bg-pink-300": tipo == 'PSYCHIC',
+                    "bg-yellow-600": tipo == 'GROUND',
+                    "bg-blue-200": tipo == 'ICE',
+                    "bg-red-800": tipo == 'FIGHTING',
+                    "bg-violet-600": tipo == 'GHOST',
+                    "bg-indigo-600": tipo == 'DRAGON',
+                    "bg-sky-400": tipo == 'FLYING',
+                    "bg-green-600": tipo == 'BUG',
+                    "bg-gray-400": tipo == 'NORMAL',
+                    "bg-pink-400": tipo == 'FAIRY'
+                }
+            ]}>{tipo}</p>
+            <p 
+            class:list={[
+                "mb-2 w-30 h-8 text-center font-bold text-xl mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                {
+                    "bg-green-400 ": tipo2 == 'GRASS',
+                    "bg-purple-400": tipo2 == 'POISON',
+                    "bg-red-400": tipo2 == 'FIRE',
+                    "bg-blue-400": tipo2 == 'WATER',
+                    "bg-yellow-400": tipo2 == 'ELECTRIC',
+                    "bg-amber-700": tipo2 == 'ROCK',
+                    "bg-pink-200": tipo2 == 'PSYCHIC',
+                    "bg-yellow-600": tipo2 == 'GROUND',
+                    "bg-blue-200": tipo2 == 'ICE',
+                    "bg-red-800": tipo2 == 'FIGHTING',
+                    "bg-violet-600": tipo2 == 'GHOST',
+                    "bg-indigo-600": tipo2 == 'DRAGON',
+                    "bg-sky-400": tipo2 == 'FLYING',
+                    "bg-green-600": tipo2 == 'BUG',
+                    "bg-gray-400": tipo2 == 'NORMAL',
+                    "bg-pink-400": tipo2 == 'FAIRY',
+                    "vacio": (tipo2 != 'GRASS' && tipo2 != 'POISON' && tipo2 != 'FIRE' && tipo2 != 'WATER' && tipo2 !=  'ELECTRIC' && tipo2 != 'ROCK' && tipo2 != 'PSYCHIC' && tipo2 != 'GROUND' && tipo2 != 'ICE' && tipo2 != 'FIGHTING' && tipo2 != 'GHOST' && tipo2 != 'DRAGON' && tipo2 != 'FLYING'&& tipo2 != 'BUG' && tipo2 != 'NORMAL' && tipo2 != 'FAIRY')
+                }
+            ]}>{tipo2}</p>
+        </div>
+    </header>
+</a>
+
+<style>
+    .vacio {
+        width: 0px;
+        height: 0px;
+        padding: 0px;
+        margin: 0px;
+    }
+</style>

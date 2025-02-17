@@ -1,0 +1,30 @@
+---
+import CardPokemon from "./CardPokemon.astro";
+import { getPokemons } from "./services/names.ts";
+const { num = 6 } = Astro.props;
+const pokemons = await getPokemons(num);
+
+---
+
+
+<div class="grid gap-8 sm:grid-cols-3 m-10">
+    {
+        pokemons.map((pokemon) => (
+            <CardPokemon
+                nombrePokemon={pokemon.name.toUpperCase()}
+                imgPokemon={pokemon.sprites.other['official-artwork'].front_default}
+                id={pokemon.id}
+                vida={pokemon.stats[0].base_stat}
+                ataque={pokemon.stats[1].base_stat}
+                defensa={pokemon.stats[2].base_stat}
+                ataqueEspecial={pokemon.stats[3].base_stat}
+                defensaEspecial={pokemon.stats[4].base_stat}
+                velocidad={pokemon.stats[5].base_stat}
+                tipo={pokemon.types['0'].type.name.toUpperCase()}
+                tipo2={pokemon.types['1']?.type.name.toUpperCase()}
+
+            />
+        ))
+        
+    }
+</div>
