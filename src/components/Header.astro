@@ -33,3 +33,16 @@ html {
     color-scheme: light dark;
 }
 </style>
+
+<script>
+
+  let search = document.querySelector('#search')
+  search?.addEventListener('keydown', function(e) {
+    let valor = search.value;  
+
+    if (document.activeElement === search && e.key === 'Enter' && valor !== "") {
+      window.location.href = `/pokemon/${valor}`;  
+    }
+  });
+
+</script>

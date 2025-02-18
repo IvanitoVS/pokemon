@@ -17,7 +17,7 @@ const data = await res.json();
 
 
 const { 
-        nombrePokemon,
+        nombrePokemon = data.name.toUpperCase(),
         imgPokemon = data.sprites.other['official-artwork'].front_default, 
         id = data.id, 
         vida = data.stats[0].base_stat, 
@@ -33,18 +33,19 @@ const {
 
 ---
 <Layout title=`Lanzamiento ${id}`>
-<article class="flex flex-row mt-20">
-    <picture class="flex  items-center p-4 pb-0 mb-5">
+<article class="flex flex-row mt-10">
+    <picture class="flex  items-center p-4 pb-0 mb-5 mt-10">
         <img class="mb-5 rounded-lg w-4xs mt-0 max-h-[475px] max-w-[475px]"src={imgPokemon} alt={`Pokemon ${id}`}>        
     </picture>
-    <header class="p-4 flex-grow ">
-        <span class=" text-white p-1 size-10 text-[1rem] font-extrabold text-center bg-red-500 w-[150px] h-7 rounded-2xl pl-3 pr-3" id="numPokedex">
+    <section class="p-4 flex-grow max-w-[1000px] ">
+        <h2 class="my-2 text-2xl font-bold tracking-tight nombrePoke">{nombrePokemon}</h2>
+        <span class=" text-white p-1 size-10 text-[1rem] font-extrabold text-center bg-red-500 w-[150px] h-7 rounded-2xl pl-3 pr-3 mb-5" id="numPokedex">
             POKEDEX #{id}</span>
-        <h2 class="my-2 text-2xl font-bold tracking-tight text-white text-center mt-10">{nombrePokemon}</h2>
-        <div class="mb-4 font-light text-gray-400">
+
+        <div class="mb-4 font-light text-gray-400 mt-5">
             <span 
             class:list={[
-                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white p-[5px]",
                 {
                     "bg-green-400 ": tipo == 'GRASS',
                     "bg-purple-400": tipo == 'POISON',
@@ -67,7 +68,7 @@ const {
             ]}>{tipo}</span>
             <span 
             class:list={[
-                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white",
+                "mb-2 w-30 h-8 text-center font-bold text-xm mr-2 px-2.5 py-0.5 rounded-2xl text-white p-[5px]",
                 {
                     "bg-green-400 ": tipo2 == 'GRASS',
                     "bg-purple-400": tipo2 == 'POISON',
@@ -89,6 +90,7 @@ const {
                 }
             ]}>{tipo2}</span>
         </div>
+        <div class="w-2xl mt-5">
             <p class=`mb-2 text-gray-900 font-semibold bg-green-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${vida}%`}>Vida: {vida}</p>
             <p class=`mb-2 text-gray-900 font-semibold bg-red-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${ataque}%`}>Ataque: {ataque}</p>
             <p class=`mb-2 text-gray-900 font-semibold bg-gray-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${defensa}%`}>Defensa: {defensa}</p>
@@ -96,11 +98,25 @@ const {
             <p class=`mb-2 text-gray-900 font-semibold bg-indigo-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${defensaEspecial}%`}>Defensa especial: {defensaEspecial}</p>
             <p class=`mb-2 text-gray-900 font-semibold bg-yellow-200 p-2 rounded-2xl max-w-[100%]` style={`width: ${velocidad}%`} >Velocidad: {velocidad}</p>
         </div>
+    </section>
+    <picture class="flex  items-center p-4 pb-0 mb-5 mt-10  grayscale-100 brightness-[100] opacity-10 absolute left-[50%] transform translate-x-[-50%] -z-1 ">
+        <img class="mb-5 rounded-lg w-4xs mt-0 max-h-[475px] max-w-[475px]" src="https://static-00.iconduck.com/assets.00/pokeball-icon-1024x1022-8x2y2u6v.png" alt="Pokeball">        
+    </picture>
 </article>
 </Layout>
 
 <style>
     .vacio {
         width: 0px;
+    }
+    .nombrePoke {
+        text-shadow: 1px 1px 2px pink;
+        font-size: 2em;
+    }
+    body {
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     }
 </style>
